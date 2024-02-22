@@ -27,12 +27,12 @@ jobs:
 
       # Setup Sonar-Scanner
       - name: Setup SonarQube
-        uses: sonarsource/sonarqube-scan-action@master
+        uses: warchant/setup-sonar-scanner@v7
 
       # Run Sonar-Scanner
       - name: SonarQube Scan
         run: sonar-scanner
-             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+             -Dsonar.host.url=${{ secrets.SONAR_URL }}
              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
              -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
              -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
@@ -50,4 +50,5 @@ jobs:
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} #OPTIONAL
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_HOST_URL: ${{ secrets.SONAR_URL }} #OPTIONAL
